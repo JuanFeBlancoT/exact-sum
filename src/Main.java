@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
@@ -9,33 +10,39 @@ public class Main {
 	static int n;
 	static int money;
 	static int pos;
+	static ArrayList<Integer> results;
 	
 	public static void main(String[] args) throws IOException {
 		
-		long start = System.currentTimeMillis();
+		//long start = System.currentTimeMillis();
+		results = new ArrayList<>();
+		String line ="";
 		
-		String line =br.readLine();
+		//line =br.readLine();
 		while(line!=null) {
 			String ns = br.readLine();
-			//System.out.println("ns: "+ns);
+			System.out.println("ns: "+ns);
 			
 			String lInput = br.readLine();
-			//System.out.println("lInput: "+lInput);
+			System.out.println("lInput: "+lInput);
 			
 			String m  = br.readLine();
-			//System.out.println("m:"+m);
+			System.out.println("m:"+m);
 			//String a = br.readLine();
 			
-			int[] prices = getPrices(ns, m, lInput);
+			int[] prices = getPrices(ns, m, lInput);		
 			pos=findIndexBigerThanMoney(money, prices);
 			findAnswer(pos, money, prices);
 			
 			line =br.readLine();
-			//System.out.println("**");
 		}
 		
-		long end = System.currentTimeMillis();
-		System.out.println("terminated in: "+(end-start)+" milis");
+		for (int i = 0; i < results.size(); i+=2) {
+			System.out.println("Peter should buy books whose prices are "+ results.get(i) +" and "+ results.get(i+1)+"\n");
+		}
+		
+		//long end = System.currentTimeMillis();
+		//System.out.println("terminated in: "+(end-start)+" milis");
 		br.close();
 		
 	}
@@ -115,7 +122,9 @@ public class Main {
 			}
 		}
 		
-		System.out.println("Peter should buy books whose prices are "+ prices[indexBi] +" and "+prices[indexBj]);
+		results.add(prices[indexBi]);
+		results.add(prices[indexBj]);
+		//System.out.println("Peter should buy books whose prices are "+ prices[indexBi] +" and "+prices[indexBj]);
 		
 		return answer;
 	}
